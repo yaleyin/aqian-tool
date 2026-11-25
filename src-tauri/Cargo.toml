@@ -1,8 +1,8 @@
 [package]
 name = "aqian-tauri"
-version = "0.1.0"
-description = "A money splitting tool for group trips"
-authors = ["A钱小工具"]
+version = "1.0.0"
+description = "A local offline tool for splitting group trip expenses"
+authors = ["ylyin"]
 edition = "2024"
 
 [lib]

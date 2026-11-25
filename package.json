@@ -1,8 +1,10 @@
 ﻿{
   "name": "aqian-tauri",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "ylyin",
+  "description": "A local offline tool for splitting group trip expenses",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

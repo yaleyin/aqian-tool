@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "A钱小工具 Tauri",
-  "version": "0.1.0",
-  "identifier": "com.aqian.tool.tauri",
+  "productName": "A钱小工具",
+  "version": "1.0.0",
+  "identifier": "com.ylyin.aqian",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "A钱小工具 Tauri",
+        "title": "A钱小工具",
         "width": 1280,
         "height": 840,
         "minWidth": 1024,
@@ -28,6 +28,10 @@
   "bundle": {
     "active": true,
     "targets": ["nsis"],
+    "publisher": "ylyin",
+    "copyright": "Copyright © 2026 ylyin",
+    "shortDescription": "多人出行消费分摊工具",
+    "longDescription": "一个完全离线的 Windows 桌面工具，用于记录出行活动和分摊金额。",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

@@ -52,7 +52,7 @@ pub fn run() {
                     .path()
                     .document_dir()
                     .or_else(|_| app.path().app_data_dir())?;
-                documents.join("A钱小工具-Tauri").join("projects")
+                documents.join("A钱小工具").join("projects")
             };
             app.manage(Store::new(data_dir));
             Ok(())
