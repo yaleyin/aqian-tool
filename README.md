@@ -21,7 +21,7 @@
 从本仓库的 **Releases** 页面下载最新的 Windows 安装包：
 
 ```text
-A钱小工具_1.0.0_x64-setup.exe
+Aqian-Tool-Setup-1.0.0.exe
 ```
 
 本地构建时会另外生成一个便于识别的副本：

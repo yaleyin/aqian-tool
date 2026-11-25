@@ -47,16 +47,24 @@ jobs:
           prerelease: false
           args: --bundles nsis
 
-      - name: Generate SHA256 checksum
-        shell: pwsh
-        run: |
-          $installer = Get-ChildItem "src-tauri/target/release/bundle/nsis/*.exe" | Select-Object -First 1
-          if (-not $installer) { throw "Installer not found" }
-          $hash = (Get-FileHash $installer.FullName -Algorithm SHA256).Hash.ToLower()
-          "$hash  $($installer.Name)" | Set-Content "$($installer.FullName).sha256" -Encoding ascii
-
-      - name: Upload SHA256 checksum
+      - name: Normalize release asset name
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ github.ref_name }} "src-tauri/target/release/bundle/nsis/*.sha256" --clobber
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $version = $tag.TrimStart('v')
+          $friendlyName = "Aqian-Tool-Setup-$version.exe"
+          $installer = Get-ChildItem "src-tauri/target/release/bundle/nsis/*.exe" | Select-Object -First 1
+          if (-not $installer) { throw "Installer not found" }
+          $friendlyPath = Join-Path $env:RUNNER_TEMP $friendlyName
+          Copy-Item $installer.FullName $friendlyPath
+          $hash = (Get-FileHash $friendlyPath -Algorithm SHA256).Hash.ToLower()
+          "$hash  $friendlyName" | Set-Content "$friendlyPath.sha256" -Encoding ascii
+          $assets = gh release view $tag --json assets --jq '.assets[].name'
+          foreach ($asset in $assets) {
+            if ($asset -like '*-setup.exe' -or $asset -like '*-setup.exe.sha256') {
+              gh release delete-asset $tag $asset --yes
+            }
+          }
+          gh release upload $tag $friendlyPath "$friendlyPath.sha256" --clobber
